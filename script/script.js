@@ -35,30 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         /*Вариант с методами filter и forEach*/
-
-        const arr = [...formCustomer.elements];
         const obj = {};
-        // for (const elem of formCustomer.elements) {
-        //     if ((elem.tagName === 'INPUT' && elem.type!== 'radio') ||
-        //         (elem.type === 'radio' && elem.checked)||
-        //         elem.tagName === 'TEXTAREA') {
-        //         obj[elem.name] = elem.value;
-        //
-        //         if (elem.type !=='radio') {
-        //             elem.value = '';
-        //         }
-        //     }
-        //
-        //
-        // }
 
-        arr.filter(el =>
-            (el.tagName === 'INPUT' && el.type !== 'radio') ||
-            (el.type === 'radio' && el.checked) ||
-            (el.tagName === 'TEXTAREA'))
-            .forEach(el => {
-                obj[el.name] = el.value;
-            });
+
+
+        [...formCustomer.elements].forEach((elem) => {
+            if ((elem.tagName === 'INPUT' && elem.type!== 'radio') ||
+                (elem.type === 'radio' && elem.checked)||
+                elem.tagName === 'TEXTAREA') {
+                obj[elem.name] = elem.value;
+                if (elem.type !=='radio') {
+                    elem.value = '';
+                }
+            }
+        })
+
+        // arr.filter(el =>
+        //     (el.tagName === 'INPUT' && el.type !== 'radio') ||
+        //     (el.type === 'radio' && el.checked) ||
+        //     (el.tagName === 'TEXTAREA'))
+        //     .forEach(el => {
+        //         obj[el.name] = el.value;
+        //     });
 
         orders.push(obj);
 
