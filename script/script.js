@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
-/*--------form---------*/
+    /*--------form---------*/
     const customer = document.getElementById('customer');
     const freelancer = document.getElementById('freelancer');
     const blockCustomer = document.getElementById('block-customer');
@@ -30,35 +30,31 @@ document.addEventListener('DOMContentLoaded', () => {
         blockChoice.style.display = 'block';
 
     });
-//перебор эл формы
-    formCustomer.addEventListener('submit', (event) =>{
+    /*перебор эл формы*/
+
+    formCustomer.addEventListener('submit', (event) => {
         event.preventDefault();
 
         /*Вариант с методами filter и forEach*/
+
         const obj = {};
 
+        const elements = [...formCustomer.elements]
+            .filter((elem) =>
+                (elem.tagName === 'INPUT' && elem.type !== 'radio') ||
+                (elem.type === 'radio' && elem.checked) ||
+                elem.tagName === 'TEXTAREA');
 
+        elements.forEach((elem) => {
+            obj[elem.name] = elem.value;
 
-        [...formCustomer.elements].forEach((elem) => {
-            if ((elem.tagName === 'INPUT' && elem.type!== 'radio') ||
-                (elem.type === 'radio' && elem.checked)||
-                elem.tagName === 'TEXTAREA') {
-                obj[elem.name] = elem.value;
-                if (elem.type !=='radio') {
-                    elem.value = '';
-                }
+            if (elem.type !== 'radio') {
+                elem.value = '';
             }
-        })
-
-        // arr.filter(el =>
-        //     (el.tagName === 'INPUT' && el.type !== 'radio') ||
-        //     (el.type === 'radio' && el.checked) ||
-        //     (el.tagName === 'TEXTAREA'))
-        //     .forEach(el => {
-        //         obj[el.name] = el.value;
-        //     });
+        });
 
         orders.push(obj);
+        console.log(orders);
 
         formCustomer.reset();
 
