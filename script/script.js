@@ -4,19 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     /*получаем элементы*/
     const customer = document.getElementById('customer');
     const freelancer = document.getElementById('freelancer');
+
     const blockCustomer = document.getElementById('block-customer');
     const blockFreelancer = document.getElementById('block-freelancer');
+
     const blockChoice = document.getElementById('block-choice');
     const btnExit = document.getElementById('btn-exit');
+
     const formCustomer = document.getElementById('form-customer');
+    //таблица
     const ordersTable = document.getElementById('orders');
-    const modalOrder = document.getElementById('orders_read');
-    const modalOrderActive = document.getElementById('orders_activ');
+    //модальное окно
+    const modalOrder = document.getElementById('order_read');
+    const modalOrderActive = document.getElementById('order_active');
 
     /*создаем заказы*/
     const orders = JSON.parse(localStorage.getItem('freeOrders'))  || [];
 
-    const toStorege = () => {
+    const toStorage = () => {
         localStorage.setItem('freeOrders', JSON.stringify(orders));
     };
 
@@ -30,15 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
             //console.log(order);
             ordersTable.innerHTML += `
             <!--номер заказа-->
-            <tr class="order $(order.active ? 'taken' : '')" data-number-order="${i}">  
+            <tr class="order ${order.active ? 'taken' : ''}"
+                data-number-order="${i}"> 
                 <td>${i + 1}</td>
                 <td>${order.title}</td>
                 <td class="${order.currency}"></td>
                 <td>${order.deadline}</td>
-            </tr>`;
+            </tr>`
         });
-
-
     };
 
     const handlerModal = (event) => {
@@ -53,21 +57,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.classList.contains('get-order')) {
             order.active = true;
             modal.style.display = 'none';
-            toStorege();
+            toStorage();
             renderOrder();
         }
 
         if (target.id === 'capitulation') {
             order.active = false;
             modal.style.display = 'none';
-            toStorege();
+            toStorage();
             renderOrder();
         }
 
         if (target.id === 'ready') {
             orders.splice(orders.indexOf(order), 1);
             modal.style.display = 'none';
-            toStorege();
+            toStorage();
             renderOrder();
         }
     };
@@ -77,30 +81,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const order = orders[numberOrder];
         //console.log(order);
 
-        const {title, firstName, email, phone, description, amount, currency, deadline, active = false} = order;
+        const {title, firstName, email, phone, description, amount, currency, deadline, active = false } = order;
 
         const modal = active ? modalOrderActive : modalOrder;
 
         const firstNameBlock = modal.querySelector('.firstName');
         const titleBlock = modal.querySelector('.modal-title');
         const emailBlock = modal.querySelector('.email');
-        const discriptionBlock = modal.querySelector('.discription');
+        const descriptionBlock = modal.querySelector('.description');
         const deadlineBlock = modal.querySelector('.deadline');
         const currencyBlock = modal.querySelector('.currency_img');
         const countBlock = modal.querySelector('.count');
         const phoneBlock = modal.querySelector('.phone');
 
+        modal.id = numberOrder;
         titleBlock.textContent = title;
         firstNameBlock.textContent = firstName;
         emailBlock.textContent = email;
         emailBlock.href = 'mailto:' + email;
-        discriptionBlock.textContent = description;
+        descriptionBlock.textContent = description;
         deadlineBlock.textContent = deadline;
         currencyBlock.className = 'currency_img';
         currencyBlock.classList.add(currency);
         countBlock.textContent = amount;
 
-        phoneBlock && (phoneBlock.href = 'tel:' + phone)
+        phoneBlock ? phoneBlock.href = `tel: + ${phone}` : '';
 
 
         modal.style.display = 'flex';
@@ -117,11 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetOrder = target.closest('.order');
 
         if (targetOrder) {
-            openModal();
+            openModal(targetOrder.dataset.numberOrder);
         }
 
         //получает data атрибут
-        console.log(orders[targetOrder.dataset.numberOrder]);
+        //console.log(orders[targetOrder.dataset.numberOrder]);
     });
 
     /*обработчик событий кн Заказчик*/
