@@ -50,29 +50,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = target.closest('.order-modal');
         const order = orders[modal.id];
 
+        const baseAction = () => {
+            modal.style.display = 'none';
+            toStorage();
+            renderOrder();
+        }
+
         if (target.closest('.close') || target === modal) {
             modal.style.display = 'none';
         }
 
         if (target.classList.contains('get-order')) {
             order.active = true;
-            modal.style.display = 'none';
-            toStorage();
-            renderOrder();
+            baseAction();
+
         }
 
         if (target.id === 'capitulation') {
             order.active = false;
-            modal.style.display = 'none';
-            toStorage();
-            renderOrder();
+            baseAction();
         }
 
         if (target.id === 'ready') {
             orders.splice(orders.indexOf(order), 1);
-            modal.style.display = 'none';
-            toStorage();
-            renderOrder();
+            baseAction();
         }
     };
 
