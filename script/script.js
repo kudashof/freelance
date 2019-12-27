@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOrderActive = document.getElementById('orders_activ');
 
     /*создаем заказы*/
-    const orders = [];
+    const orders = JSON.parse(localStorage.getItem('freeOrders'))  || [];
+
+    const toStorege = () => {
+        localStorage.setItem('freeOrders', JSON.stringify(orders));
+    };
 
 
     //рендерим таблицу заказов
@@ -22,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ordersTable.textContent = '';
 
-        orders.forEach((order, i) =>{
-            console.log(order);
+        orders.forEach((order, i) => {
+            //console.log(order);
             ordersTable.innerHTML += `
             <!--номер заказа-->
-            <tr class="order" data-number-order="${i}">  
-                <td>${i+1}</td>
+            <tr class="order $(order.active ? 'taken' : '')" data-number-order="${i}">  
+                <td>${i + 1}</td>
                 <td>${order.title}</td>
                 <td class="${order.currency}"></td>
                 <td>${order.deadline}</td>
@@ -37,26 +41,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     };
 
+    const handlerModal = (event) => {
+        const target = event.target;
+        const modal = target.closest('.order-modal');
+        const order = orders[modal.id];
+
+        if (target.closest('.close') || target === modal) {
+            modal.style.display = 'none';
+        }
+
+        if (target.classList.contains('get-order')) {
+            order.active = true;
+            modal.style.display = 'none';
+            toStorege();
+            renderOrder();
+        }
+
+        if (target.id === 'capitulation') {
+            order.active = false;
+            modal.style.display = 'none';
+            toStorege();
+            renderOrder();
+        }
+
+        if (target.id === 'ready') {
+            orders.splice(orders.indexOf(order), 1);
+            modal.style.display = 'none';
+            toStorege();
+            renderOrder();
+        }
+    };
+
     /*модальное окно*/
     const openModal = (numberOrder) => {
         const order = orders[numberOrder];
-        const modal = order.active ? modalOrderActive : modalOrder;
+        //console.log(order);
 
-        const firstNameBlock = document.querySelector('.firstName');
-        const titleBlock = document.querySelector('.modal-title');
-        const emailBlock = document.querySelector('.email');
-        const discriptionBlock = document.querySelector('.discription');
-        const deadlineBlock = document.querySelector('.deadline');
-        const currencyBlock = document.querySelector('.currency_img');
-        const countBlock = document.querySelector('.count');
-        const phoneBlock = document.querySelector('.phone');
+        const {title, firstName, email, phone, description, amount, currency, deadline, active = false} = order;
 
-        titleBlock.textContent = order.title;
-        firstNameBlock.textContent = order.firstName;
+        const modal = active ? modalOrderActive : modalOrder;
 
-    modal.style.display = 'block';
+        const firstNameBlock = modal.querySelector('.firstName');
+        const titleBlock = modal.querySelector('.modal-title');
+        const emailBlock = modal.querySelector('.email');
+        const discriptionBlock = modal.querySelector('.discription');
+        const deadlineBlock = modal.querySelector('.deadline');
+        const currencyBlock = modal.querySelector('.currency_img');
+        const countBlock = modal.querySelector('.count');
+        const phoneBlock = modal.querySelector('.phone');
 
-    }
+        titleBlock.textContent = title;
+        firstNameBlock.textContent = firstName;
+        emailBlock.textContent = email;
+        emailBlock.href = 'mailto:' + email;
+        discriptionBlock.textContent = description;
+        deadlineBlock.textContent = deadline;
+        currencyBlock.className = 'currency_img';
+        currencyBlock.classList.add(currency);
+        countBlock.textContent = amount;
+
+        phoneBlock && (phoneBlock.href = 'tel:' + phone)
+
+
+        modal.style.display = 'flex';
+
+        modal.addEventListener('click', handlerModal)
+
+    };
 
     /*обработчик событий таблицы*/
     ordersTable.addEventListener('click', (event) => {
@@ -122,6 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
         orders.push(obj);
         /*сброс формы*/
         formCustomer.reset();
+
+        toStorege()
     })
 
 
