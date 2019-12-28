@@ -26,13 +26,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
+
+    /*ф-ция склонения числительных*/
+    const declOfNum = (number, titles) =>
+        number + ' ' + titles[(number % 100 > 4 && number % 100 < 20) ?
+        2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]];
+    /*считает дату дедлайна*/
+    const calcDeadline = (date) => {
+        const deadline = new Date(date);
+        const toDay = Date.now();
+
+        const remaining = (deadline - toDay) / 1000/60/60;
+
+        if(remaining / 24 > 2) {
+            return declOfNum(Math.floor(remaining / 24), ['день', 'дня', 'дней']);
+        }
+        return declOfNum(Math.floor(remaining), ['час', 'часа', 'часов']);
+    };
+
     //рендерим таблицу заказов
     const renderOrder = () => {
 
         ordersTable.textContent = '';
 
         orders.forEach((order, i) => {
-            //console.log(order);
+            //шаблонные строки
             ordersTable.innerHTML += `
             <!--номер заказа-->
             <tr class="order ${order.active ? 'taken' : ''}"
@@ -40,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${i + 1}</td>
                 <td>${order.title}</td>
                 <td class="${order.currency}"></td>
-                <td>${order.deadline}</td>
+                <td>${calcDeadline(order.deadline)}</td>
             </tr>`
         });
     };
@@ -101,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emailBlock.textContent = email;
         emailBlock.href = 'mailto:' + email;
         descriptionBlock.textContent = description;
-        deadlineBlock.textContent = deadline;
+        deadlineBlock.textContent = calcDeadline(deadline);
         currencyBlock.className = 'currency_img';
         currencyBlock.classList.add(currency);
         countBlock.textContent = amount;
@@ -133,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /*обработчик событий кн Заказчик*/
     customer.addEventListener('click', () => {
         blockChoice.style.display = 'none';
+        const toDay = new Date().toISOString().substring(0, 10);
+        document.getElementById('deadline').min = toDay;
         blockCustomer.style.display = 'block';
         btnExit.style.display = 'block';
     });
