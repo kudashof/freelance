@@ -20,12 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const headTable = document.getElementById('headTable')
     /*создаем заказы*/
-    const orders = JSON.parse(localStorage.getItem('freeOrders'))  || [];
+    const orders = JSON.parse(localStorage.getItem('freeOrders')) || [];
 
     const toStorage = () => {
         localStorage.setItem('freeOrders', JSON.stringify(orders));
     };
-
 
 
     /*ф-ция склонения числительных*/
@@ -37,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const deadline = new Date(date);
         const toDay = Date.now();
 
-        const remaining = (deadline - toDay) / 1000/60/60;
+        const remaining = (deadline - toDay) / 1000 / 60 / 60;
 
-        if(remaining / 24 > 2) {
+        if (remaining / 24 > 2) {
             return declOfNum(Math.floor(remaining / 24), ['день', 'дня', 'дней']);
         }
         return declOfNum(Math.floor(remaining), ['час', 'часа', 'часов']);
@@ -101,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const order = orders[numberOrder];
         //console.log(order);
 
-        const {title, firstName, email, phone, description, amount, currency, deadline, active = false } = order;
+        const {title, firstName, email, phone, description, amount, currency, deadline, active = false} = order;
 
         const modal = active ? modalOrderActive : modalOrder;
 
@@ -135,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /*сортировка объекта в массиве*/
-    const  sortOrder = (arr, property) => {
+    const sortOrder = (arr, property) => {
         arr.sort((a, b) => a[property] > b[property] ? 1 : -1)
     };
 
@@ -143,14 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
     headTable.addEventListener('click', (event) => {
         const target = event.target;
 
-        if (target.classList.contains('head-sort')){
-            if(target.id === 'taskSort'){
+        if (target.classList.contains('head-sort')) {
+            if (target.id === 'taskSort') {
                 sortOrder(orders, 'title');
             }
-            if(target.id === 'currencySort'){
+            if (target.id === 'currencySort') {
                 sortOrder(orders, 'currency');
             }
-            if(target.id === 'deadlineSort'){
+            if (target.id === 'deadlineSort') {
                 sortOrder(orders, 'deadline');
             }
             toStorage();

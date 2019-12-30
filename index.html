@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
-				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="./libs/bootstrap.min.css">
 	<link rel="stylesheet" href="./style/style.css">
@@ -43,11 +43,13 @@
 				<div class="row">
 					<div class="col-md-4 mb-3">
 						<label for="firstName">Ваше имя</label>
-						<input type="text" class="form-control" id="firstName" name="firstName" required placeholder="ваше имя">
+						<input type="text" class="form-control" id="firstName" name="firstName" required
+							   placeholder="ваше имя">
 					</div>
 					<div class="col-md-4 mb-3">
 						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" name="email" placeholder="you@mail.com" required>
+						<input type="email" class="form-control" id="email" name="email" placeholder="you@mail.com"
+							   required>
 					</div>
 					<div class="col-md-4 mb-3">
 						<label for="phone">Номер телефона <span class="text-muted">(optional)</span></label>
@@ -59,8 +61,8 @@
 				<div class="mb-3">
 					<label for="description">Описание</label>
 					<textarea type="text" class="form-control" id="description" name="description"
-										placeholder="Поднобно опишите задачу" rows="4"
-										required></textarea>
+							  placeholder="Поднобно опишите задачу" rows="4"
+							  required></textarea>
 				</div>
 
 				<div class="row">
@@ -76,11 +78,13 @@
 								<span class="img__radio img__radio_bucks"></span>
 							</label>
 							<label class="currency">
-								<input class="currency__radio" type="radio" name="currency" id="shawarma" value="shawarma" checked>
+								<input class="currency__radio" type="radio" name="currency" id="shawarma"
+									   value="shawarma" checked>
 								<span class="img__radio img__radio_shawarma"></span>
 							</label>
 							<label class="currency">
-								<input class="currency__radio" type="radio" name="currency" id="doshirak" value="doshirak">
+								<input class="currency__radio" type="radio" name="currency" id="doshirak"
+									   value="doshirak">
 								<span class="img__radio img__radio_doshirak"></span>
 							</label>
 						</div>
@@ -89,7 +93,8 @@
 						<div class="mb-3">
 							<label for="deadline">Срок выполнения до:</label>
 
-							<input type="date" id="deadline" class="form-control" name="deadline" max="2020-12-31" required>
+							<input type="date" id="deadline" class="form-control" name="deadline" max="2020-12-31"
+								   required>
 						</div>
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Отправить заявку</button>
 					</div>
@@ -118,40 +123,40 @@
 				</thead>
 				<tbody id="orders">
 				<!--<tr class="order">-->
-					<!--<td>1</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="doshirak"></td>-->
-					<!--<td>2019-12-31</td>-->
+				<!--<td>1</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="doshirak"></td>-->
+				<!--<td>2019-12-31</td>-->
 				<!--</tr>-->
 				<!--<tr class="order taken">-->
-					<!--<td>2</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="bucks"></td>-->
-					<!--<td>2020-01-14</td>-->
+				<!--<td>2</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="bucks"></td>-->
+				<!--<td>2020-01-14</td>-->
 				<!--</tr>-->
 				<!--<tr class="order">-->
-					<!--<td>3</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="doshirak"></td>-->
-					<!--<td>2019-12-24</td>-->
+				<!--<td>3</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="doshirak"></td>-->
+				<!--<td>2019-12-24</td>-->
 				<!--</tr>-->
 				<!--<tr class="order taken">-->
-					<!--<td>4</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="shawarma"></td>-->
-					<!--<td>2020-02-03</td>-->
+				<!--<td>4</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="shawarma"></td>-->
+				<!--<td>2020-02-03</td>-->
 				<!--</tr>-->
 				<!--<tr class="order">-->
-					<!--<td>5</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="doshirak"></td>-->
-					<!--<td>2020-04-02</td>-->
+				<!--<td>5</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="doshirak"></td>-->
+				<!--<td>2020-04-02</td>-->
 				<!--</tr>-->
 				<!--<tr class="order">-->
-					<!--<td>6</td>-->
-					<!--<td>Lorem</td>-->
-					<!--<td class="shawarma"></td>-->
-					<!--<td>2020-02-14</td>-->
+				<!--<td>6</td>-->
+				<!--<td>Lorem</td>-->
+				<!--<td class="shawarma"></td>-->
+				<!--<td>2020-02-14</td>-->
 				<!--</tr>-->
 
 
@@ -184,8 +189,10 @@
 					</div>
 					<div class="col-12 bg-info text-white my-4">
 						<h5>Подробное описание задачи</h5>
-						<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur
-							consequuntur facilis magni maiores neque nostrum. Accusantium corporis culpa esse facilis modi neque
+						<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+							consectetur
+							consequuntur facilis magni maiores neque nostrum. Accusantium corporis culpa esse facilis
+							modi neque
 							nesciunt odio quisquam rerum veritatis, voluptatibus, voluptatum!</p>
 					</div>
 
@@ -243,8 +250,10 @@
 					</div>
 					<div class="col-12 bg-info text-white my-4 py-2">
 						<h5>Подробное описание задачи</h5>
-						<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur
-							consequuntur facilis magni maiores neque nostrum. Accusantium corporis culpa esse facilis modi neque
+						<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+							consectetur
+							consequuntur facilis magni maiores neque nostrum. Accusantium corporis culpa esse facilis
+							modi neque
 							nesciunt odio quisquam rerum veritatis, voluptatibus, voluptatum!</p>
 					</div>
 
