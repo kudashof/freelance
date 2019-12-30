@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOrder = document.getElementById('order_read');
     const modalOrderActive = document.getElementById('order_active');
 
+    const headTable = document.getElementById('headTable')
     /*создаем заказы*/
     const orders = JSON.parse(localStorage.getItem('freeOrders'))  || [];
 
@@ -132,6 +133,30 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.addEventListener('click', handlerModal)
 
     };
+
+    /*сортировка объекта в массиве*/
+    const  sortOrder = (arr, property) => {
+        arr.sort((a, b) => a[property] > b[property] ? 1 : -1)
+    };
+
+    /*сортировка таблицы заказов*/
+    headTable.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if (target.classList.contains('head-sort')){
+            if(target.id === 'taskSort'){
+                sortOrder(orders, 'title');
+            }
+            if(target.id === 'currencySort'){
+                sortOrder(orders, 'currency');
+            }
+            if(target.id === 'deadlineSort'){
+                sortOrder(orders, 'deadline');
+            }
+            toStorage();
+            renderOrder();
+        }
+    })
 
     /*обработчик событий таблицы*/
     ordersTable.addEventListener('click', (event) => {
